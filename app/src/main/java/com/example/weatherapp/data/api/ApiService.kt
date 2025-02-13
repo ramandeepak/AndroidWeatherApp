@@ -6,9 +6,14 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ApiService {
+
+    companion object {
+        const val API_KEY = "16309e007f0f40a5a80123044221507"
+    }
+
     @GET("forecast.json")
     suspend fun getWeatherForecast(
-        @Query("key") apiKey: String = "16309e007f0f40a5a80123044221507",
+        @Query("key") apiKey: String = API_KEY,
         @Query("q") location: String,
         @Query("days") days: Int = 1,
         @Query("aqi") aqi: String = "no",

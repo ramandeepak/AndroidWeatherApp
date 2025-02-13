@@ -8,8 +8,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.weatherapp.data.model.WeatherResponse
-import com.example.weatherapp.viewmodel.WeatherViewModel
 import com.google.android.gms.location.LocationServices
 
 class LocationManager private constructor() {
@@ -37,7 +35,7 @@ class LocationManager private constructor() {
     }
 
     fun getLocation(activity: Activity, context: Context) {
-        // Use FusedLocationProviderClient to get the location
+
         val fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity)
 
         if (ActivityCompat.checkSelfPermission(
@@ -48,23 +46,11 @@ class LocationManager private constructor() {
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return
         }
         fusedLocationClient.lastLocation.addOnSuccessListener { location ->
             if (location != null) {
-                // Location found, do something with it
-                //_latitude.postValue(location.latitude)
-                //_longitude.postValue(location.longitude)
                 _geoCoordinates.postValue(Pair(location.latitude, location.longitude))
-                //viewModel.fetchWeatherData("${location.latitude},${location.longitude}")
-                // ...
             } else {
                 // Location not found, handle accordingly
             }
